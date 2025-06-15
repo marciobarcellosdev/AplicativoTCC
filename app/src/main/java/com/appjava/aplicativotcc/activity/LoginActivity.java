@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,16 +17,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.appjava.aplicativotcc.R;
 import com.appjava.aplicativotcc.helper.HelperFirebase;
+import com.appjava.aplicativotcc.helper.HelperValidation;
 import com.appjava.aplicativotcc.model.ModelUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-
-import java.util.Objects;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,11 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.constraintLayoutLogin), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        authentication = HelperFirebase.getFirebaseAuthentication();
 
         methodInitializeLoginComponents();
         progressBarLogin.setVisibility(View.INVISIBLE);
@@ -69,13 +67,9 @@ public class LoginActivity extends AppCompatActivity {
         String storageEmail = editTextLoginEmail.getText().toString();
         String storagePassword = editTextLoginPassword.getText().toString();
 
-        boolean emptyEmail = false;
-        boolean emptyPassword = false;
+        boolean result = HelperValidation.methodValidateLoginFields(storageEmail, storagePassword);
 
-        if(storageEmail.isEmpty()) emptyEmail = true;
-        if(storagePassword.isEmpty()) emptyPassword = true;
-
-        if(emptyEmail || emptyPassword){
+        if(!result){
             Toast.makeText( LoginActivity.this, getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
         }else{
             modelUser = new ModelUser();
@@ -96,7 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             progressBarLogin.setVisibility(View.INVISIBLE);
                             Toast.makeText( LoginActivity.this, getString(R.string.user_logged), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            openScreenGlobal();
+                            //startActivity(new Intent(getApplicationContext(), CardsActivity.class));
                             finish();
                         }else{
                             progressBarLogin.setVisibility(View.INVISIBLE);
@@ -107,7 +102,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     public void openScreenSignup(View view){
-        Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
+        Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
         startActivity(intent);
+    }
+    public void openScreenGlobal(){
+        Intent intent = new Intent(LoginActivity.this, GlobalActivity.class); // Temporario
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        FirebaseUser currentUser = authentication.getCurrentUser();
+        if(currentUser != null){
+            openScreenGlobal();
+        }
     }
 }

@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/constraintLayoutLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.LoginActivity">
@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray">
+        android:background="@color/tcc_background_theme">
 
         <EditText
             android:id="@+id/editTextLoginEmail"
@@ -18,8 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:ems="10"
-            android:hint="E-mail"
+            android:hint="e-mail"
             android:inputType="textEmailAddress"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/editTextLoginPassword"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,8 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:ems="10"
-            android:hint="Senha"
+            android:hint="senha"
             android:inputType="textPassword"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
             app:layout_constraintEnd_toEndOf="parent"

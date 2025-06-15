@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.appjava.aplicativotcc.R;
 import com.appjava.aplicativotcc.helper.HelperFirebase;
+import com.appjava.aplicativotcc.helper.HelperValidation;
 import com.appjava.aplicativotcc.model.ModelUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +29,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 import java.util.Objects;
 
-public class CadastroActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     private EditText editTextSignupUser, editTextSignupEmail, editTextSignupPassword;
     private Button buttonSignup;
@@ -40,8 +41,8 @@ public class CadastroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_cadastro);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        setContentView(R.layout.activity_signup);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.constraintLayoutSignup), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -69,16 +70,10 @@ public class CadastroActivity extends AppCompatActivity {
         String storageEmail = editTextSignupEmail.getText().toString();
         String storagePassword = editTextSignupPassword.getText().toString();
 
-        boolean emptyUser = false;
-        boolean emptyEmail = false;
-        boolean emptyPassword = false;
+        boolean result = HelperValidation.methodValidateSignupFields(storageUser, storageEmail, storagePassword);
 
-        if(storageUser.isEmpty()) emptyUser = true;
-        if(storageEmail.isEmpty()) emptyEmail = true;
-        if(storagePassword.isEmpty()) emptyPassword = true;
-
-        if(emptyUser || emptyEmail || emptyPassword){
-            Toast.makeText( CadastroActivity.this, getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
+        if(!result){
+            Toast.makeText( SignupActivity.this, getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
         }else{
             modelUser = new ModelUser();
             modelUser.setUser(storageUser);
@@ -99,8 +94,8 @@ public class CadastroActivity extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     progressBarSignup.setVisibility(View.INVISIBLE);
-                    Toast.makeText( CadastroActivity.this, getString(R.string.user_registered), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    Toast.makeText( SignupActivity.this, getString(R.string.user_registered), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), GetChargeLocationActivity.class));
                     finish();
                 }else{
                     progressBarSignup.setVisibility(View.INVISIBLE);
@@ -123,7 +118,7 @@ public class CadastroActivity extends AppCompatActivity {
                         exception = getString(R.string.signup_error) + e.getMessage();
                         e.printStackTrace();
                     }
-                    Toast.makeText( CadastroActivity.this, exception, Toast.LENGTH_SHORT).show();
+                    Toast.makeText( SignupActivity.this, exception, Toast.LENGTH_SHORT).show();
                 } // if else
             }; // onComplete
         }); // addOnCompleteListener

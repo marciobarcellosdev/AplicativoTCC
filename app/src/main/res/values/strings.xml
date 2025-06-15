@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">AplicativoTCC</string>
+    <string name="app_name">Carrega Meu Carro</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -11,7 +10,7 @@
         usado pelo main
     </string>
 
-<!--    SIGNUP-->
+    <!--    SIGNUP-->
     <string name="user_registered">Usuário cadastrado com sucesso</string>
     <string name="empty_fields">Preencha os dados</string>
     <string name="need_stronger_password">A senha precisa ser mais forte</string>
@@ -19,9 +18,12 @@
     <string name="user_already_registered">Conta já cadastrada</string>
     <string name="signup_error">Erro ao cadastrar usuário</string>
 
-<!--    LOGIN-->
+    <!--    LOGIN-->
     <string name="user_logged">Usuário logado com sucesso</string>
     <string name="login_error">Erro ao logar usuário</string>
+    <string name="title_activity_map">MapActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

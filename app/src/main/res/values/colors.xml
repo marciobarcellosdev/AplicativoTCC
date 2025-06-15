@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="tcc_background_theme">#d6dbdf</color>
+
+    <color name="tcc_cards_background">#70818f</color>
 </resources>

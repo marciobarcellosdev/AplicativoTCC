@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Home"
+        android:id="@+id/bottomNavHome"
+        android:icon="@drawable/icon_home"/>
+
+    <item android:title="Mapa"
+        android:id="@+id/bottomNavMap"
+        android:icon="@drawable/icon_map"/>
+
+    <item android:title="Perfil"
+        android:id="@+id/bottomNavProfile"
+        android:icon="@drawable/icon_profile"/>
+
+    <item android:title="Sair"
+        android:id="@+id/bottomNavLogout"
+        android:icon="@drawable/icon_logout"/>
+
+
+</menu>
